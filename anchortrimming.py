@@ -258,7 +258,7 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--region', required=True, metavar = 'REGION', help = 'Region in the 16S rRNA gene. Available options: %s' % ', '.join(Settings().available_regions()), choices = Settings().available_regions())
     parser.add_argument('-a', '--anchor-sequences', required=True, metavar = 'ANCHORS_FILE', help = 'Input file that contains the list of valid anchor sequences')
     parser.add_argument('-o', '--output', help = 'Where trimmed sequences will be written (default: standart output)')
-    parser.add_argument('-d', '--max-divergence', type=float, default=0.9, help = 'Maximum Levenshtine distance allowed candidate trimming site from one of the valid anchor sequence (default: 0.90). \nNote on maximum divergence:')
+    parser.add_argument('-d', '--max-divergence', type=float, default=0.9, help = 'Maximum Levenshtine distance allowed candidate trimming site from one of the valid anchor sequence (default: 0.90). Please see the note at the top of the source code in order to get more information on maximum divergence.')
 
     args = parser.parse_args()
    
