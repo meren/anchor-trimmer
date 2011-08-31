@@ -1,0 +1,21 @@
+This directory contains some files that I used while I was working on my sequences.
+
+v3v5-valid_anchor_sequences.txt and v6v4-valid_anchor_sequences.txt are real valid anchor sequences for those regions and can be used to trim those regions.
+
+For instance, if you have a library of v3v5 reads that you would like to trim, you can type this command in the upper directory to see the results:
+
+    python anchortrimming.py -i myfastafile.fa -r v3v5 -a files/v3v5-valid_anchor_sequences.txt
+
+If you would like to store trimmed and failed sequences, you might want to use it this way:
+
+    python anchortrimming.py -i myfastafile.fa -r v3v5 -a files/v3v5-valid_anchor_sequences.txt -o myfastafile-trimmed
+
+And stats.py would give you a very brief idea about the result:
+
+
+    python files/stats.py myfastafile-trimmed
+        number of sequences    : 24999
+        average sequence length: 448.02
+        standard deviation     : 10.99
+        minimum sequence length: 431
+        maximum sequence length: 475
