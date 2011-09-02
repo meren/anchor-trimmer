@@ -30,7 +30,7 @@ class SequenceSource:
         if self.file_content[self.pos * 2][0] != '>':
             print '''
                      this primitive fasta library assumes that sequencs are not split into multiple lines..
-                     sorry for this inconvenience. obviously someone hired a very lazy programmer :/
+                     sorry for this inconvenience. obviously someone was very very lazy :/
                      
                      and now this primitive library will go beyond this and call a sys.exit on your client.
                      
@@ -41,23 +41,38 @@ class SequenceSource:
                      #!/usr/bin/python
                      # -*- coding: utf-8 -*-
                      
+                     import os
                      import sys
                      
                      fasta_file = sys.argv[1]
                      
-                     fasta_lines = open(fasta_file).readlines()
-                     fasta_lines.append("#")
+                     if not os.path.exists(fasta_file):
+                         print "No such file.."
+                         sys.exit(0)
                      
-                     new_fasta = open(fasta_file + "-NEW-LINES-REMOVED", "w")
+                     fasta = open(fasta_file)
                      
-                     for i in range(0, len(fasta_lines) - 1):
-                         if fasta_lines[i].startswith('#') or fasta_lines[i].startswith('>'):
-                             new_fasta.write(fasta_lines[i])
-                         elif fasta_lines[i + 1].startswith('#') or fasta_lines[i + 1].startswith('>'):
-                             new_fasta.write(fasta_lines[i])
-                         elif fasta_lines[i][-1] == '\\n':
-                             new_fasta.write(fasta_lines[i].strip())
+                     print 'har har'
                      
+                     new_fasta = open(fasta_file + ".new", "w")
+                     sequence = []
+                     while 1:
+                         line = fasta.readline()
+                     
+                         if not line:
+                             if len(sequence):
+                                 new_fasta.write(''.join(sequence) + '\n')
+                             break
+                     
+                         if line.startswith('>'):
+                             if len(sequence):
+                                 new_fasta.write(''.join(sequence) + '\n')
+                             new_fasta.write(line)
+                             sequence = []
+                     
+                         else:
+                             sequence.append(line.strip())
+                         
                      new_fasta.close()
                      ----8<----8<----8<----8<----8<----8<----8<----8<----8<----8<----8<----8<-----
 
