@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
+#
+# See README file for details. Send your questions / remarks to "A. Murat Eren", <meren / mbl.edu>
 
 
-# Settings for different regions of 16S rRNA gene.
-#
-# reversed: if the sequence is reverse sequenced.
-# start   : nucleotide position to start the search (if reversed is true, it is -(start), means not from the beginning but from the end of the sequence)
-# freedom : the length of the search space from both directions.
-# length  : expected length of the anchor sequence
-#
 
 class Settings:
+    """
+    Settings class with templates for different regions of 16S rRNA gene (see __main__ for client side usage).
+    """
     def __init__(self, region = None):
         self.general_settings = {
               'v6v4': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13}, # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
@@ -22,6 +20,10 @@ class Settings:
     def available_regions(self):
        return self.general_settings.keys()
 
+# reversed: if the sequence is reverse sequenced.
+# start   : nucleotide position to start the search (if reversed is true, it is -(start), means not from the beginning but from the end of the sequence)
+# freedom : the length of the search space from both directions.
+# length  : expected length of the anchor sequence
 
 
 import sys
@@ -73,8 +75,8 @@ def generate_tuples(start, freedom, length, direction = -1, step = 0, list_of_tu
            (6, 10)                                                     (14, 18)
      (5, 9)                                                                    (15, 19)
 
-    so, if you know where it is likely to find the patter, you can start from there, and expand search to both
-    directions step by step in a better optimized way.
+    so, if you know where it is likely to find the pattern, you can start from there, and expand search to both
+    directions step by step in a somewhat optimized way.
     """
 
     if reversed_read:
@@ -128,8 +130,8 @@ def find_best_distance(sequence, valid_anchor_sequences, max_divergence, list_of
     # and maybe some of them were better candidates. this issue becomes even more of a challenge when we pick 'best_anchor' in the next
     # line by sorting this list. just by chance, from two equaly good candidates, the one that could be more prefferable in terms of the
     # trimming location in the sequence might be beaten by another one during the sorting. at some point we might want to plug
-    # in a probabilistic logic here to pick competing locations (maybe equally -edit- distant options would be ranked based on a gaussian
-    # curve to pick the most appealing one in terms of position in the read):
+    # in a probabilistic logic here to pick competing locations (maybe equally distant options could be ranked based on a 
+    # pre-computed mixture of gaussian curves for a given region to pick the most appealing location to use as an anchor):
 
     best_loc_for_every_anchor_sorted = sorted(best_loc_for_every_anchor, key = lambda k: k[1][0], reverse=True)
     if len(best_loc_for_every_anchor_sorted):
