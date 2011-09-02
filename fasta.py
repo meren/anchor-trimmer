@@ -61,12 +61,12 @@ class SequenceSource:
                      
                          if not line:
                              if len(sequence):
-                                 new_fasta.write(''.join(sequence) + '\n')
+                                 new_fasta.write(''.join(sequence) + '\\n')
                              break
                      
                          if line.startswith('>'):
                              if len(sequence):
-                                 new_fasta.write(''.join(sequence) + '\n')
+                                 new_fasta.write(''.join(sequence) + '\\n')
                              new_fasta.write(line)
                              sequence = []
                      
