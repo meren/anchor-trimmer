@@ -10,8 +10,9 @@ class Settings:
     """
     def __init__(self, region = None):
         self.general_settings = {
-              'v6v4': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13}, # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v3v5': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length'  : 13}, # previously determined anchor consensus: GGATTAGA[T,G]ACCC
+              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13}, # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
+              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length'  : 13}, # previously determined anchor consensus: GGATTAGA[T,G]ACCC
+              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length'  : 12}, # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
         }
 
         if region:
