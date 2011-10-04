@@ -3,30 +3,6 @@
 # See README file for details. Send your questions / remarks to "A. Murat Eren", <meren / mbl.edu>
 
 
-
-class Settings:
-    """
-    Settings class with templates for different regions of 16S rRNA gene (see __main__ for client side usage).
-    """
-    def __init__(self, region = None):
-        self.general_settings = {
-              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13}, # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length'  : 13}, # previously determined anchor consensus: GGATTAGA[T,G]ACCC
-              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length'  : 12}, # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
-        }
-
-        if region:
-            self.region_settings = DictDotNotationWrapper(self.general_settings[region])
-
-    def available_regions(self):
-       return self.general_settings.keys()
-
-# reversed: if the sequence is reverse sequenced.
-# start   : nucleotide position to start the search (if reversed is true, it is -(start), means not from the beginning but from the end of the sequence)
-# freedom : the length of the search space from both directions.
-# length  : expected length of the anchor sequence
-
-
 import sys
 try:
     import Levenshtein
@@ -40,6 +16,34 @@ except:
 
 '''
     sys.exit(-1)
+
+
+class Settings:
+    """
+    Settings class with templates for different regions of 16S rRNA gene (see __main__ for client side usage).
+
+    * reversed: if the sequence is reverse sequenced.
+    * start   : nucleotide position to start the search (if reversed is true, it is -(start),
+                means not from the beginning but from the end of the sequence)
+    * freedom : the length of the search space from both directions.
+    * length  : expected length of the anchor sequence
+    """
+
+    def __init__(self, region = None):
+        self.general_settings = {
+              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13},
+                            # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
+              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length'  : 13},
+                            # previously determined anchor consensus: GGATTAGA[T,G]ACCC
+              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length'  : 12},
+                            # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
+        }
+
+        if region:
+            self.region_settings = DictDotNotationWrapper(self.general_settings[region])
+
+    def available_regions(self):
+       return self.general_settings.keys()
 
 
 class DictDotNotationWrapper(object):
@@ -193,11 +197,18 @@ if __name__ == '__main__':
     import fasta as u
 
     parser = argparse.ArgumentParser(description='Fuzzy anchor trimming for 454 Sequences')
-    parser.add_argument('-i', '--input-fasta', required=True, metavar = 'FASTA_FILE', help = 'Sequences file to be trimmed in FASTA format')
-    parser.add_argument('-r', '--region', required=True, metavar = 'REGION', help = 'Region in the 16S rRNA gene. Available options: %s' % ', '.join(Settings().available_regions()), choices = Settings().available_regions())
-    parser.add_argument('-a', '--anchor-sequences', required=True, metavar = 'ANCHORS_FILE', help = 'Input file that contains the list of valid anchor sequences')
+    parser.add_argument('-i', '--input-fasta', required=True, metavar = 'FASTA_FILE',
+                        help = 'Sequences file to be trimmed in FASTA format')
+    parser.add_argument('-r', '--region', required=True, metavar = 'REGION',
+                        help = 'Region in the 16S rRNA gene. Available options: %s' % 
+                                    ', '.join(Settings().available_regions()), choices = Settings().available_regions())
+    parser.add_argument('-a', '--anchor-sequences', required=True, metavar = 'ANCHORS_FILE',
+                        help = 'Input file that contains the list of valid anchor sequences')
     parser.add_argument('-o', '--output', help = 'Where trimmed sequences will be written (default: standart output)')
-    parser.add_argument('-d', '--max-divergence', type=float, default=0.9, help = 'Maximum Levenshtine distance allowed candidate trimming site from one of the valid anchor sequence (default: 0.90). Please see README file in order to get more information on maximum divergence.')
+    parser.add_argument('-d', '--max-divergence', type=float, default=0.9,
+                        help = 'Maximum Levenshtine distance allowed candidate trimming site from one of the valid\
+                                anchor sequence (default: 0.90). Please see README file in order to get more\
+                                information on maximum divergence.')
 
     args = parser.parse_args()
    
