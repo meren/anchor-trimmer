@@ -19,8 +19,8 @@
 import sys
 import numpy
 
-sys.path.append('..')
-import fasta as u
+sys.path.append('/'.join(os.path.dirname(os.path.abspath(__file__))[:-1]))
+import fastalib as u
 
 fas = u.SequenceSource(sys.argv[1])
 

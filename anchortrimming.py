@@ -32,14 +32,16 @@ class Settings:
 
     def __init__(self, region = None):
         self.general_settings = {
-              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length'  : 13},
+              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length' : 13},
                             # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v6v4-4xx': {'reversed': True,  'start'   : 480, 'freedom' : 60, 'length'  : 11},
+              'v6v4-4xx': {'reversed': True,  'start'   : 480, 'freedom' : 60, 'length' : 11},
                             # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length'  : 13},
+              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length' : 13},
                             # previously determined anchor consensus: GGATTAGA[T,G]ACCC
-              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length'  : 12},
+              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length' : 12},
                             # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
+              'v6v5-cut': {'reversed': True, 'start'   : 260, 'freedom' : 50, 'length'  : 20},
+                            # previously determined primer consensus: ATTAGA[A,T]ACCC[C,T,G][A,T,G]GTAGTCC
         }
 
         if region:
@@ -197,7 +199,7 @@ def main(s):
 
 if __name__ == '__main__':
     import argparse
-    import fasta as u
+    import fastalib as u
 
     parser = argparse.ArgumentParser(description='Fuzzy anchor trimming for 454 Sequences')
     parser.add_argument('-i', '--input-fasta', required=True, metavar = 'FASTA_FILE',
