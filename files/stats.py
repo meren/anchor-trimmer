@@ -16,10 +16,11 @@
 # the figure in "sys.argv[1] + '.png'".
 # 
 
+import os
 import sys
 import numpy
 
-sys.path.append('/'.join(os.path.dirname(os.path.abspath(__file__))[:-1]))
+sys.path.append('/'.join(os.path.dirname(os.path.abspath(__file__)).split('/')[:-1]))
 import fastalib as u
 
 fas = u.SequenceSource(sys.argv[1])
