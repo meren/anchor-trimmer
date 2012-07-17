@@ -40,6 +40,8 @@ class Settings:
                             # previously determined anchor consensus: GGATTAGA[T,G]ACCC
               'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length' : 12},
                             # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
+              'v6-cut'  : {'reversed': False, 'start'   : 400, 'freedom' : 60, 'length'  : 19},
+                            # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
               'v6v5-cut': {'reversed': True, 'start'   : 260, 'freedom' : 50, 'length'  : 20},
                             # previously determined primer consensus: ATTAGA[A,T]ACCC[C,T,G][A,T,G]GTAGTCC
         }
