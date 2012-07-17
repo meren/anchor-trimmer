@@ -105,11 +105,17 @@ def generate_tuples(start, freedom, length, direction = -1, step = 0, list_of_tu
     return generate_tuples(start + direction * step, freedom, length, direction, step, list_of_tuples, reversed_read = reversed_read)
 
 
-def trim_sequence(sequence, location, s):
-    if s.reversed:
-        return sequence[location[0]:] # this includes the anchor in trimmed sequence..
+def trim_sequence(sequence, location, reversed, strip_anchors):
+    if reversed:
+        if strip_anchors:
+            return sequence[location[1]:] # this includes the anchor in trimmed sequence..
+        else:
+            return sequence[location[0]:] # this includes the anchor in trimmed sequence..
     else:
-        return sequence[:location[1]] # same thing here for the reversed == False
+        if strip_anchors:
+            return sequence[:location[0]] # same thing here for the reversed == False
+        else:
+            return sequence[:location[1]] # same thing here for the reversed == False
 
 
 def find_best_distance(sequence, valid_anchor_sequences, max_divergence, list_of_tuples):
@@ -123,7 +129,7 @@ def find_best_distance(sequence, valid_anchor_sequences, max_divergence, list_of
                 # we'll return it imediately.
                 return (anchor, tpl)
             elif r >= max_divergence:
-                # r is not 1, but it is larger than the 'max_divergence' accepted.
+                # r is not 1, but iT is larger than the 'max_divergence' accepted.
                 # we'll put it in a list and keep testing.
                 non_perfect_matches.append((r, tpl))
 
@@ -174,7 +180,7 @@ def main(s):
                 s.valid_anchor_sequences.insert(0, s.valid_anchor_sequences.pop(s.valid_anchor_sequences.index(anchor)))
             
             # busines time.
-            trimmed = trim_sequence(input.seq, location, s)
+            trimmed = trim_sequence(input.seq, location, reversed = s.reversed, strip_anchors = s.strip_anchors)
 
             if s.screen:
                 s.output.write('>' + input.id + '\n')
@@ -216,14 +222,19 @@ if __name__ == '__main__':
                         help = 'Maximum Levenshtine distance allowed candidate trimming site from one of the valid\
                                 anchor sequence (default: 0.90). Please see README file in order to get more\
                                 information on maximum divergence.')
+    parser.add_argument('-s', '--strip-anchors', action = 'store_true', default = False,
+                       help = 'By default anchors are being left in the read. When this parameter is set, anchors\
+                               would be removed from the end product.')
 
     args = parser.parse_args()
    
     s = Settings(args.region).region_settings
 
-    s.input_fasta = u.SequenceSource(args.input_fasta)
+    s.input_fasta = u.SequenceSource(args.input_fasta, lazy_init = False)
     s.valid_anchor_sequences = [sequence.strip() for sequence in open(args.anchor_sequences).readlines()]
     s.max_divergence = args.max_divergence
+
+    s.strip_anchors = args.strip_anchors
 
     if args.output:
         s.screen = False
