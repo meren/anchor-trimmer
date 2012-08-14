@@ -32,18 +32,18 @@ class Settings:
 
     def __init__(self, region = None):
         self.general_settings = {
-              'v6v4-361': {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length' : 13},
-                            # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v6v4-4xx': {'reversed': True,  'start'   : 480, 'freedom' : 60, 'length' : 11},
-                            # previously determiend anchor consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
-              'v3v5-440': {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length' : 13},
-                            # previously determined anchor consensus: GGATTAGA[T,G]ACCC
-              'v3v5-370': {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length' : 12},
-                            # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
-              'v6-cut'  : {'reversed': False, 'start'   : 400, 'freedom' : 60, 'length'  : 19},
-                            # previously determined anchor consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
-              'v6v5-cut': {'reversed': True, 'start'   : 260, 'freedom' : 50, 'length'  : 20},
-                            # previously determined primer consensus: ATTAGA[A,T]ACCC[C,T,G][A,T,G]GTAGTCC
+              'v6v4-361'     : {'reversed': True,  'start'   : 361, 'freedom' : 50, 'length' : 13},
+                                # previously determined consensus: G[T,G]AG.[A,G]GT[A,G][A,G]AAT
+              'v6v4-4xx'     : {'reversed': True,  'start'   : 480, 'freedom' : 60, 'length' : 11},
+                                # previously determined consensus: TGGG[T,C][T,G]TAAAG
+              'v3v5-440'     : {'reversed': False, 'start'   : 440, 'freedom' : 30, 'length' : 13},
+                                # previously determined consensus: GGATTAGA[T,G]ACCC
+              'v3v5-370'     : {'reversed': False, 'start'   : 370, 'freedom' : 50, 'length' : 12},
+                                # previously determined consensus: [A,T,C][A,T,G]GCGAA[A,G]GC[A,G][A,C,G]
+              'v6v4-v6-cut'  : {'reversed': True, 'start'   : 80, 'freedom' : 30, 'length'  : 19},
+                                # previously determined consensus: [A,C].A[A,C][C,G]CG[A,T,G].[A,G]AACCT[T,C]A.C
+              'v6v4-v6v5-cut': {'reversed': True, 'start'   : 260, 'freedom' : 50, 'length'  : 20},
+                                # previously determined consensus: ATTAGA[A,T]ACCC[C,T,G][A,T,G]GTAGTCC
         }
 
         if region:
