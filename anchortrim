@@ -45,6 +45,11 @@ class Settings:
                                 # previously determined consensus: [A,C].A[A,C][C,G]CG[A,T,G].[A,G]AACCT[T,C]A.C
               'v6v4-v6v5-cut': {'reversed': True, 'start'   : 260, 'freedom' : 50, 'length'  : 20},
                                 # previously determined consensus: ATTAGA[A,T]ACCC[C,T,G][A,T,G]GTAGTCC
+              'v6v4-v6v5-cut2': {'reversed': False, 'start'   : 225, 'freedom' : 50, 'length'  : 13},
+                                # previously determined consensus: GGATTAGATACCC
+                                # v6v4-v6v5-cut2 added by SMH 20120821 for retrimming the original v6v4 down to 785
+              'v4v6-395'      : {'reversed': False, 'start'   : 395, 'freedom' : 50, 'length': 18},
+                                # previously determined consensus: A.T[C,T]AAA.[A,G]AAT[A,T]GACGG
         }
 
         if region:
