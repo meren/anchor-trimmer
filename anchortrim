@@ -50,6 +50,10 @@ class Settings:
                                 # v6v4-v6v5-cut2 added by SMH 20120821 for retrimming the original v6v4 down to 785
               'v4v6-395'      : {'reversed': False, 'start'   : 395, 'freedom' : 50, 'length': 18},
                                 # previously determined consensus: A.T[C,T]AAA.[A,G]AAT[A,T]GACGG
+              'EMP-FWD'       : {'reversed': True, 'start'   : 250, 'freedom':  50, 'length': 8},
+                                # previously determined consensus: CGCGGTAA
+              'EMP-REV'       : {'reversed': False, 'start'   : 250, 'freedom':  50, 'length': 10},
+                                # previously determined consensus: ATTAGA[A,T,C,G]ACC
         }
 
         if region:
@@ -176,7 +180,9 @@ def main(s):
     input = s.input_fasta
 
     while input.next():
-        anchor, location = find_best_distance(input.seq, s.valid_anchor_sequences, s.max_divergence, list_of_tuples)
+        sequence = input.seq.upper()
+
+        anchor, location = find_best_distance(sequence, s.valid_anchor_sequences, s.max_divergence, list_of_tuples)
 
         if anchor and location:
             # lets get that anchor at the beginning of the list..
@@ -186,11 +192,11 @@ def main(s):
                 s.valid_anchor_sequences.insert(0, s.valid_anchor_sequences.pop(s.valid_anchor_sequences.index(anchor)))
             
             # busines time.
-            trimmed = trim_sequence(input.seq, location, reversed = s.reversed, strip_anchors = s.strip_anchors)
+            trimmed = trim_sequence(sequence, location, reversed = s.reversed, strip_anchors = s.strip_anchors)
 
             if s.screen:
                 s.output.write('>' + input.id + '\n')
-                s.output.write(colorize(input.seq, location) + '\n')
+                s.output.write(colorize(sequence, location) + '\n')
             else:
                 s.output.write('>' + input.id + '\n')
                 s.output.write(trimmed + '\n')
@@ -200,13 +206,13 @@ def main(s):
         else:
             if s.screen:
                 s.failed.write('>' + input.id + '\n')
-                s.failed.write(input.seq + '\n')
+                s.failed.write(sequence + '\n')
                 if input.pos % 100 == 0:
                     sys.stderr.write('\rTRIMMING: %.2d%% -- pos: %d' % (input.pos * 100 / input.total_seq, input.pos))
                     sys.stderr.flush()
             else:
                 s.failed.write('>' + input.id + '\n')
-                s.failed.write(input.seq + '\n')
+                s.failed.write(sequence + '\n')
     print
 
 
