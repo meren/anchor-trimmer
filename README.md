@@ -1,7 +1,9 @@
-Anchor trimming for bacterial 454 amplicon sequences.
+Anchor trimming for amplicon sequences.
 -----------------------------------------------------
 
-This is a solution developed in MBL to trim long 454 sequences from somewhere between the forward and distal primers, when the amplicon length of PCR process is too much for 454 machine to sequence the entire molecule. By using a semi-conserved anchor somewhere in the reads, it is possible to trim sequences not based on the length (which could vary drastically from taxon to taxon) but based on a biologically viable place which could be prefferable for the consistensy of downstream analyses.
+This is a solution developed in MBL to originally trim long 454 sequences from somewhere between the forward and distal primers, when the amplicon length of PCR process is too much for 454 machine to sequence the entire molecule. By using a semi-conserved anchor somewhere in the reads, it was possible to trim sequences not based on the length (which could vary drastically from taxon to taxon) but based on a biologically viable place which could be prefferable for the consistensy of downstream analyses.
+
+It turns out it also works quite beautifully to trim primers as well (as I recently started using it to trim EMP primers from MiSeq runs).
 
 This application requires a couple of things. When it is run from the command line, besides the obvious things such as input file or output destination, it expects 2 things that require some explanation:
 
@@ -31,5 +33,5 @@ If you don't provide an 'output' file name, program basically will print sequenc
 If you have questions, please don't hesitate to send an e-mail.
 
 
-Questions / remarks can be sent to A. Murat Eren, <meren / mbl.edu>
+Questions / remarks can be sent to A. Murat Eren, <meren / uchicago.edu>
 
